@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import HeroSection from './components/HeroSection';
 import LoginModal from './components/LoginModal';
 import ProductList from './components/ProductList';
 import CarrinhoModal from './components/CarrinhoModal';
+import logo192 from './logo192.png'; // Agora importa corretamente da pasta src
 
 function App() {
   const [mostrarModalLogin, setMostrarModalLogin] = useState(false);
@@ -10,9 +14,9 @@ function App() {
   const [carrinho, setCarrinho] = useState([]);
 
   const produtos = [
-    { id: 1, nome: 'Camisa Gabriel Shop', preco: 59.90 },
-    { id: 2, nome: 'Boné Estiloso', preco: 39.90 },
-    { id: 3, nome: 'Tênis Urbano', preco: 129.90 }
+    { id: 1, nome: 'Camisa Gabriel Shop', preco: 59.90, imagem: logo192 },
+    { id: 2, nome: 'Boné Estiloso', preco: 39.90, imagem: logo192 },
+    { id: 3, nome: 'Tênis Urbano', preco: 129.90, imagem: logo192 }
   ];
 
   const abrirModalLogin = () => setMostrarModalLogin(true);
@@ -32,14 +36,16 @@ function App() {
 
   return (
     <div>
-      <header style={{ padding: "20px", textAlign: "right", backgroundColor: "#fff", borderBottom: "1px solid #eee" }}>
-        <button onClick={abrirCarrinho} style={{background: 'none', border: '1px solid #ccc', padding: '8px 16px', borderRadius: '5px', cursor: 'pointer'}}>
-          Ver Carrinho ({carrinho.length})
-        </button>
-      </header>
+      <Header cartItemCount={carrinho.length} onCartClick={abrirCarrinho} />
 
-      <HeroSection onLoginClick={abrirModalLogin} />
-      <ProductList produtos={produtos} onAdicionarAoCarrinho={adicionarAoCarrinho} />
+      <main>
+        <Routes>
+          <Route path="/" element={<HeroSection onLoginClick={abrirModalLogin} />} />
+          <Route path="/produtos" element={<ProductList produtos={produtos} onAdicionarAoCarrinho={adicionarAoCarrinho} />} />
+        </Routes>
+      </main>
+
+      <Footer />
 
       {mostrarModalLogin && <LoginModal onClose={fecharModalLogin} />}
       
