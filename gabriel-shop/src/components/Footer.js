@@ -4,7 +4,7 @@ import './Footer.css';
 function Footer() {
   return (
     <footer className="app-footer">
-      <p>&copy; 2024 Gabriel Shop. Todos os direitos reservados.</p>
+      <p>&copy; 2025 Gabriel Shop. Todos os direitos reservados.</p>
       <p>Contato: contato@gabrielshop.com</p>
     </footer>
   );
